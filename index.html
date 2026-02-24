@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MunchMint - Best Food Delivery</title>
+       <link rel="stylesheet" href="style.css">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils mint-logo"></i>
+                        <span>MunchBitee</span>
+                    </div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#top-picks" class="nav-link">Top Picks</a></li>
+                    <li><a href="#restaurants" class="nav-link">Restaurants</a></li>
+                    <li><a href="cart.html" class="nav-link">Cart (<span id="cart-count">0</span>)</a></li>
+                    <li><a href="help6.html" class="nav-link help-btn" >Help <i class="fas fa-question-circle"></i></a></li>
+                </ul>
+                <div class="auth-section" id="authSection">
+                    <button class="btn btn-outline" onclick="showAuthModal('login')">Login</button>
+                    <button class="btn btn-primary" onclick="showAuthModal('signup')">Sign Up</button>
+                </div>
+                <div class="hamburger" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1 id="hero-title">Discover Delicious Food</h1>
+            <p id="hero-subtitle">Order from 5000+ restaurants near you</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">3M+</div>
+                    <div>Orders Delivered</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">800+</div>
+                    <div>Partner Restaurants</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">₹50Cr+</div>
+                    <div>Saved by Customers</div>
+                </div>
+            </div>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('top-picks')">
+                    <i class="fas fa-utensils"></i> Order Now
+                </button>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <div id="hero-image" class="hero-image"></div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Stats Section (like screenshot) -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="food-item left-slide">
+                    <i class="fas fa-pizza-slice"></i>
+                    <span>Pizza</span>
+                </div>
+                <div class="food-item right-slide">
+                    <i class="fas fa-hamburger"></i>
+                    <span>Burger</span>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-store"></i></div>
+                    <h3>5000+</h3>
+                    <p>Restaurants</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-motorcycle"></i></div>
+                    <h3>30 min</h3>
+                    <p>Delivery Time</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Picks -->
+    <section id="top-picks" class="section top-picks-section">
+        <div class="container">
+            <h2 class="section-title">Top Picks for You</h2>
+            <div class="top-picks-grid" id="topPicksGrid"></div>
+        </div>
+    </section>
+
+    <!-- Restaurants -->
+    <section id="restaurants" class="section restaurants-section">
+        <div class="container">
+            <h2 class="section-title">Popular Restaurants</h2>
+            <div class="restaurants-grid" id="restaurantsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+<section class="why-choose-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Why Choose MunchBitee?</h2>
+            <p class="section-subtitle">We're committed to providing the best food experience</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3>Average Fast Delivery</h3>
+                <p>30 min delivery guarantee</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Safe & Secure</h3>
+                <p>Contactless delivery & secure payment</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Top Quality</h3>
+                <p>Partner with highly rated restaurants</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tag"></i>
+                </div>
+                <h3>Best Prices</h3>
+                <p>Competitive prices with no hidden fees</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Round the clock customer support</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Eco-Friendly</h3>
+                <p>Sustainable packaging & delivery</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Download App Section -->
+<section class="download-app-section">
+    <div class="container">
+        <div class="app-promo-content">
+            <div class="app-info">
+                <h2>Download Our Mobile App</h2>
+                <p>Order food on the go with our friendly mobile application. Get exclusive discounts and track your order instantly!</p>
+                <div class="app-features">
+                    <div class="app-feature">
+                        <i class="fas fa-percent"></i>
+                        <span>Faster Ordering</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-star"></i>
+                        <span>Exclusive Discounts</span>
+                    </div>
+                    <div class="app-feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Real-time Tracking</span>
+                    </div>
+                </div>
+                <div class="app-buttons">
+                    <a href="#" class="app-store-btn">
+                        <i class="fab fa-apple"></i>
+                        <span>App Store</span>
+                    </a>
+                    <a href="#" class="play-store-btn">
+                        <i class="fab fa-google-play"></i>
+                        <span>Google Play</span>
+                    </a>
+                </div>
+            </div>
+            <div class="app-mockup">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="screen-header">
+                            <span class="time">6:45 PM</span>
+                            <div class="status-icons">
+                                <i class="fas fa-wifi"></i>
+                                <i class="fas fa-battery-full"></i>
+                            </div>
+                        </div>
+                        <div class="screen-content">
+                            <div class="order-status">
+                                <div class="status-item">
+                                    <div class="status-icon green"></div>
+                                    <span>Order Confirmed</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-icon yellow"></div>
+                                    <span>Preparing</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-icon orange"></div>
+                                    <span>Out for Delivery</span>
+                                </div>
+                                <div class="status-item">
+                                    <div class="status-icon blue"></div>
+                                    <span>Delivered</span>
+                                </div>
+                            </div>
+                            <div class="estimated-time">ETA: 25 min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+        <div class="container">
+            <h2>Customer Love</h2>
+            <div class="feedback-grid">
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Priya Sharma</h4>
+                            <div class="rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Best food delivery app! Fast service and great taste."</p>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Rahul Kumar</h4>
+                            <div class="rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Love the variety! Ordered from 10 different restaurants."</p>
+                </div>
+                <div class="feedback-card">
+                    <div class="feedback-header">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h4>Anjali R.</h4>
+                            <div class="rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                    </div>
+                    <p>"Perfect for office lunch. Quick and affordable!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-utensils mint-logo"></i>
+                        <span>MunchBitee</span>
+                    </div>
+                    <p>India's favorite food delivery app with 5000+ restaurants</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Food Delivery</a></li>
+                        <li><a href="#">Dineout</a></li>
+                        <li><a href="#">Genie</a></li>
+                        <li><a href="#">Subscriptions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#" onclick="showHelp()">Help Center</a></li>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Download App</a></li>
+                        <li><a href="#">Partner with Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MunchBitee. All rights reserved. Made with ❤️ in India</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Login</h2>
+            <form id="authForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Email/Phone</label>
+                    <input type="text" id="authInput" placeholder="Enter email or phone" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-lock"></i> Password</label>
+                    <input type="password" id="password" placeholder="Enter password" required>
+                </div>
+                <div class="auth-tabs">
+                    <button type="button" class="tab-btn active" data-role="user">Customer</button>
+                    <button type="button" class="tab-btn" data-role="owner">Restaurant Owner</button>
+                    <button type="button" class="tab-btn" data-role="new-restaurant">New Restaurant</button>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="cartModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+            <div id="cartItemsContainer"></div>
+            <div class="cart-total">
+                <h3>Total: <span id="cartTotal">₹0</span></h3>
+                <button class="btn btn-primary full-width" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+<script src="script.js"></script>
+
+   <script src="js/cart.js"></script>
+
+
+
+</body>
+</html>
