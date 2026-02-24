@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - MunchBite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+    <!-- Navbar (add your navbar here with id="cart-count") -->
+    
+    <h1 class="page-title"><i class="fas fa-shopping-cart"></i> Your Cart</h1>
+    
+    <div class="cart-container">
+        <section class="cart-items-section">
+            <div id="cartItemsList" class="cart-items-list"></div>
+            <div id="emptyCartMessage" class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Seems like you haven't added anything to your cart</p>
+                <a href="index.html" class="btn btn-primary">Continue Shopping</a>
+            </div>
+        </section>
+
+        <aside class="order-summary">
+            <h2 class="summary-title"><i class="fas fa-receipt"></i> Order Summary</h2>
+            <div class="summary-row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+            <div class="summary-row"><span>Tax (5%)</span><span id="tax">₹0</span></div>
+            <div class="summary-row"><span>Delivery Charge</span><span id="delivery">₹50</span></div>
+            <div class="coupon-section">
+                <input type="text" class="coupon-input" id="couponInput" placeholder="Enter coupon code">
+                <button class="apply-coupon" onclick="applyCoupon()">Apply Coupon</button>
+                <div id="couponMessage"></div>
+            </div>
+            <div class="summary-row"><span>Total</span><span id="grandTotal">₹50</span></div>
+            <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()" disabled>
+                <i class="fas fa-credit-card"></i> Proceed to Checkout
+            </button>
+            <p style="text-align: center; color: var(--gray); font-size: 0.9rem; margin-top: 1rem;">
+                <i class="fas fa-shield-alt"></i> 100% Secure Checkout
+            </p>
+        </aside>
+    </div>
+
+
+    <!-- SINGLE SCRIPT - WORKS EVERYWHERE -->
+    <script src="js/cart.js"></script>
+</body>
+</html>

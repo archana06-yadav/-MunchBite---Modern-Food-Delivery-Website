@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Palace - MunchBite</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="sushi-spot">
+
+
+    <!-- HERO SECTION -->
+    <section class="restaurant-hero">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1>Burger Bonanza</h1>
+                <p class="hero-quote">"Freshly made burgers with premium ingredients"</p>
+                <div class="hero-stats">
+                    <span>⭐ 4.7 (3.2K)</span>
+                    <span>20-30 min</span>
+                    <span>₹250 - ₹500</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU GRID -->
+    <section class="menu-section">
+        <div class="container">
+            <h2>Popular Dishes</h2>
+            <div id="restaurantMenuGrid" class="menu-grid"></div>
+        </div>
+    </section>
+
+    <!-- CART MODAL (SAME AS YOURS) -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Your Cart</h3>
+                <span class="close" onclick="closeCart()">&times;</span>
+            </div>
+            <div id="cartItemsContainer"></div>
+            <div class="cart-total">
+                <h3>Total: <span id="cartTotal">₹0</span></h3>
+                <button class="btn btn-primary full-width" onclick="placeOrder()">Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PIZZA PALACE MENU -->
+    <script>
+        let cart = JSON.parse(localStorage.getItem('munchmint-cart')) || [];
+
+        const restaurantMenu = [
+            { id: 301, name: 'Classic Roll', price: 299, img: './images/10.png', restaurant: 'Burger Bonanza' },
+            { id: 302, name: 'Cheese Burger', price: 349, img: './images/burger10.png', restaurant: 'Burger Bonanza' },
+            { id: 303, name: 'Spring Roll', price: 399, img: './images/spring-roll10.png', restaurant: 'Burger Bonanza' },
+            { id: 304, name: 'Spaghetti', price: 279, img: './images/spaghetti10.png', restaurant: 'Burger Bonanza' },
+            { id: 305, name: 'Veg Subway', price: 429, img: './images/sandwich10.png', restaurant: 'Burger Bonanza' },
+            { id: 306, name: ' Mix Pizza', price: 149, img: './images/pizza10.png', restaurant: 'Burger Bonanza' },
+            { id: 307, name: 'Lasagna', price: 129, img: './images/lasagna10.png', restaurant: 'Burger Bonanza' },
+            { id: 308, name: 'Triscoop Icecream', price: 249, img: './images/products/triscoop.jpg', restaurant: 'Burger Bonanza' },
+            { id: 309, name: 'Bnanna Icecream', price: 199, img: './images/products/bnanaicecream.jpg', restaurant: 'Burger Bonanza' },
+            { id: 310, name: 'dessert', price: 59, img: './images/products/dessert.jpg', restaurant: 'Burger Bonanza' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderRestaurantMenu();
+            updateCartUI();
+        });
+
+        function renderRestaurantMenu() {
+            const container = document.getElementById('restaurantMenuGrid');
+            container.innerHTML = restaurantMenu.map(item => createMenuCard(item)).join('');
+        }
+
+        function createMenuCard(item) {
+            return `
+                <div class="food-card" onclick="addToCart(${item.id})" style="cursor: pointer;">
+                    <div class="card-image" style="background-image: url('${item.img}'); background-size: cover; background-position: center;">
+                        <div class="image-overlay">
+                            <i class="fas fa-cart-shopping"></i><br>ADD TO CART
+                        </div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h3 class="card-title">${item.name}</h3>
+                        <div class="card-rating">⭐ 4.7</div>
+                        <div class="restaurant-name">${item.restaurant}</div>
+                        <div class="price">₹${item.price}</div>
+                        <button class="btn btn-primary full-width" onclick="event.stopPropagation(); addToCart(${item.id})">
+                            ADD ₹${item.price}
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addToCart(itemId) {
+            const item = restaurantMenu.find(p => p.id === itemId);
+            if (!item) {
+                console.log('Item not found:', itemId);
+                return;
+            }
+            const cartItem = cart.find(c => c.id === itemId);
+            if (cartItem) {
+                cartItem.quantity += 1;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            localStorage.setItem('munchmint-cart', JSON.stringify(cart));
+            updateCartUI();
+            showSuccessMessage(`${item.name} added to cart!`);
+        }
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            console.log('Cart count:', count);
+        }
+
+        function renderCartModal() {
+            const container = document.getElementById('cartItemsContainer');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: var(--gray);">Your cart is empty</p>';
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid var(--light-gray);">
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>₹${item.price} × ${item.quantity} = ₹${(item.price * item.quantity).toFixed(0)}</p>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button onclick="changeQuantity(${item.id}, -1)" style="width: 35px; height: 35px; border: 1px solid var(--light-gray); border-radius: 50%;">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" style="width: 35px; height: 35px; border: 1px solid var(--light-gray); border-radius: 50%;">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('cartTotal').textContent = `₹${total.toFixed(0)}`;
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(c => c.id !== id);
+                }
+                localStorage.setItem('munchmint-cart', JSON.stringify(cart));
+                updateCartUI();
+                renderCartModal();
+            }
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+
+        function placeOrder() {
+            if (cart.length === 0) return;
+            alert('Order placed successfully! 🎉\nCheck cart.html for full cart');
+            cart = [];
+            localStorage.setItem('munchmint-cart', JSON.stringify(cart));
+            closeCart();
+            renderCartModal();
+            updateCartUI();
+        }
+
+        function showCart() {
+            renderCartModal();
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function showSuccessMessage(msg) {
+            const toast = document.createElement('div');
+            toast.textContent = msg;
+            toast.style.cssText = `
+                position: fixed; top: 100px; right: 20px; background: var(--mint-primary); 
+                color: white; padding: 1rem 2rem; border-radius: 10px; z-index: 3000;
+                animation: slideInRight 0.3s ease; font-family: 'Poppins', sans-serif;
+            `;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        const style = document.createElement('style');
+        style.textContent = `@keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }`;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

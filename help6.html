@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - FoodSwift</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            /* Your Mint Theme - Perfect for Help Page */
+            --mint-primary: #14B8A6;
+            --mint-secondary: #5EEAD4;
+            --mint-light: #ECFEFF;
+            --mint-dark: #0F766E;
+            --dark: #1F2937;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(20, 184, 166, 0.30);
+            --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--mint-light) 0%, #e6fffa 50%, white 100%);
+            min-height: 100vh;
+            padding-top: 2rem; /* Space for page title */
+        }
+        /* Page Title - Adjusted spacing without navbar */
+        .page-title {
+            text-align: center;
+            background: linear-gradient(135deg, var(--mint-primary), var(--mint-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin: 2rem 2rem 3rem;
+            opacity: 1;
+            transition: all 0.5s ease;
+            padding: 0 2rem;
+        }
+        .page-title.hidden {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+        /* Main Content */
+        .content-wrapper {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            display: flex;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 340px;
+            flex-shrink: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(20,184,166,0.2);
+            height: fit-content;
+        }
+        .sidebar h2 {
+            color: var(--mint-dark);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .menu-item {
+            margin-bottom: 0.5rem;
+        }
+        .menu-title {
+            color: var(--dark);
+            font-weight: 500;
+            padding: 1.2rem 1rem;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1rem;
+        }
+        .menu-title:hover {
+            background: var(--mint-light);
+            color: var(--mint-dark);
+            transform: translateX(5px);
+        }
+        .menu-title.active {
+            background: linear-gradient(135deg, var(--mint-primary), var(--mint-secondary));
+            color: white;
+        }
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: var(--mint-light);
+            border-radius: 12px;
+            margin-top: 0.5rem;
+        }
+        .submenu.active {
+            max-height: 400px;
+            padding: 1rem;
+        }
+        .submenu-item {
+            color: var(--gray);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+        .submenu-item:hover,
+        .submenu-item.active {
+            background: white;
+            color: var(--mint-primary);
+            box-shadow: var(--shadow-light);
+        }
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3.5rem 3rem;
+            box-shadow: var(--shadow);
+            min-height: 70vh;
+        }
+        .panel {
+            display: none;
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        .panel.active-panel {
+            display: block;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .panel h3 {
+            color: var(--mint-dark);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .panel p {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        .read-more {
+            color: var(--mint-primary);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+        .read-more:hover {
+            color: var(--mint-dark);
+        }
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
+        }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                padding: 0 1rem;
+            }
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+            .page-title {
+                margin: 1rem 1rem 2rem;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Title -->
+    <h1 class="page-title" id="pageTitle">Help & Support</h1>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Help Categories</h2>
+            
+            <div class="menu-item">
+                <div class="menu-title active" data-panel="partner">
+                    👥 Partner Onboarding
+                </div>
+                <div class="submenu active">
+                    <div class="submenu-item active" data-panel="partner-faq">FAQs</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-title" data-panel="legal">⚖️ Legal</div>
+                <div class="submenu">
+                    <div class="submenu-item" data-panel="legal-tou">Terms of Use</div>
+                    <div class="submenu-item" data-panel="legal-pp">Privacy Policy</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-title" data-panel="instamart">🛒 Instamart Onboarding</div>
+                <div class="submenu">
+                    <div class="submenu-item" data-panel="instamart-faq">FAQs</div>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <div class="menu-title" data-panel="irctc">🚂 IRCTC Checks</div>
+                <div class="submenu">
+                    <div class="submenu-item" data-panel="irctc-faq">FAQs</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div id="partner-faq" class="panel active-panel">
+                <h3>Partner Onboarding FAQs</h3>
+                <p>Need FSSAI license, GST registration, PAN card, and bank details to list your restaurant. Onboarding takes 3-7 days after verification.</p>
+            </div>
+
+            <div id="legal-tou" class="panel">
+                <h3>Terms of Use</h3>
+                <p>These terms govern your use of FoodSwift services. By using our platform, you agree to these terms. 
+                <span class="read-more">[Read More]</span></p>
+            </div>
+
+            <div id="legal-pp" class="panel">
+                <h3>Privacy Policy</h3>
+                <p>We respect your privacy and ensure your data is protected according to applicable laws. 
+                <span class="read-more">[Read More]</span></p>
+            </div>
+
+            <div id="instamart-faq" class="panel">
+                <h3>Instamart Onboarding FAQs</h3>
+                <p>Grocery stores need FSSAI, inventory list, and photos. Get approved within 48 hours.</p>
+            </div>
+
+            <div id="irctc-faq" class="panel">
+                <h3>IRCTC Checks FAQs</h3>
+                <p>Train catering partners require IRCTC license and hygiene certification for verification.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Scroll effect for page title only (no navbar)
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY > 100;
+            document.getElementById('pageTitle').classList.toggle('hidden', scrolled);
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.menu-title, .submenu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const targetId = item.dataset.panel;
+                
+                // Reset all active states
+                document.querySelectorAll('.menu-title, .submenu-item').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.submenu').forEach(sm => sm.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active-panel'));
+
+                // Activate clicked item
+                item.classList.add('active');
+                
+                if (item.parentElement.classList.contains('submenu')) {
+                    item.parentElement.classList.add('active');
+                    item.closest('.menu-item').querySelector('.menu-title').classList.add('active');
+                } else {
+                    item.nextElementSibling?.classList.add('active');
+                }
+
+                // Show panel
+                if (targetId) {
+                    document.getElementById(targetId).classList.add('active-panel');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
